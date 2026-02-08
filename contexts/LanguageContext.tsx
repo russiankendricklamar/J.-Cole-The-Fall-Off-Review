@@ -87,13 +87,13 @@ const translations: Record<Language, Translations> = {
     visuals: {
       title: "Visuals",
       gallery: "003 — GALLERY",
-      view: "VIEW",
       captions: {
-        cover: "The Fall Off — Official Cover",
-        trailer: "Teaser Trailer",
-        concept1: "Concept Art .001",
-        visualizer: "Visualizer",
-        concept2: "Concept Art .002"
+        coverMain: "Official Cover",
+        clipAmari: "Midnight",
+        clipPunchin: "The Fall-Off is Inevitable",
+        trailerPressure: "THE FALL-OFF ANNOUNCEMENT",
+        clipInterlude: "Two Six",
+        coverCD: "CD Cover"
       }
     },
     tracks: {
@@ -139,13 +139,13 @@ const translations: Record<Language, Translations> = {
     visuals: {
       title: "Визуал",
       gallery: "003 — ГАЛЕРЕЯ",
-      view: "СМОТРЕТЬ",
       captions: {
-        cover: "The Fall Off — Обложка",
-        trailer: "Тизер Трейлер",
-        concept1: "Концепт Арт .001",
-        visualizer: "Визуализатор",
-        concept2: "Концепт Арт .002"
+        coverMain: "Официальная Обложка",
+        clipAmari: "Midnight",
+        clipPunchin: "The Fall-Off is Inevitable",
+        trailerPressure: "THE FALL-OFF ANNOUNCEMENT",
+        clipInterlude: "Two Six",
+        coverCD: "Обложка CD"
       }
     },
     tracks: {
