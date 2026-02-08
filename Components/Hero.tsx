@@ -1,7 +1,9 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero: React.FC = () => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -33,7 +35,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 1, delay: 1.5, ease: [0.76, 0, 0.24, 1] }}
           className="font-mono text-black text-sm md:text-xl mb-4 tracking-[0.5em] uppercase"
         >
-          The Final Chapter
+          {t.hero.chapter}
         </motion.h2>
 
         <div className="relative">
@@ -62,7 +64,7 @@ const Hero: React.FC = () => {
       >
         <span>J. Cole</span>
         <span>2025</span>
-        <span className="hidden md:inline">Dreamville Records</span>
+        <span className="hidden md:inline">{t.hero.label}</span>
       </motion.div>
 
       {/* Decorative vertical lines */}
