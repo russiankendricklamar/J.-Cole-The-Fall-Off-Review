@@ -68,7 +68,7 @@ const translations: Record<Language, Translations> = {
       label: "Dreamville Records"
     },
     marquee: {
-      strip1: "THE FALL OFF — A MASTERPIECE — J. COLE — 2025 — DREAMVILLE —",
+      strip1: "THE FALL OFF — A MASTERPIECE — J. COLE — 2026 — DREAMVILLE —",
       strip2: "LEGENDARY STATUS — NORTH CAROLINA — THE CLIMB BACK —"
     },
     review: {
@@ -98,14 +98,14 @@ const translations: Record<Language, Translations> = {
     },
     tracks: {
       title: "Tracklist",
-      disc1: "Disc 1",
-      disc2: "Disc 2"
+      disc1: "Disc 29",
+      disc2: "Disc 39"
     },
     footer: {
       labelTitle: "Label",
       designTitle: "Design",
       rights: "All Rights Reserved.",
-      year: "Year: 2025"
+      year: "Year: 2026"
     }
   },
   ru: {
@@ -120,14 +120,14 @@ const translations: Record<Language, Translations> = {
       label: "Dreamville Records"
     },
     marquee: {
-      strip1: "THE FALL OFF — J. COLE — 2025 — DREAMVILLE —",
+      strip1: "THE FALL OFF — J. COLE — 2026 — DREAMVILLE —",
       strip2: "ЛЕГЕНДАРНЫЙ СТАТУС — СПОКОЙНЫЙ ФИНАЛ — ПУТЬ НАВЕРХ И ОБРАТНО —"
     },
     review: {
       title: "КОРОЛЬ\nУХОДИТ",
       rating: "РЕЙТИНГ",
       genre: "ЖАНР",
-      runtime: "ВРЕМЯ",
+      runtime: "ХРОНОМЕТРАЖ",
       mainText: "\"The Fall-Off\" — двойной альбом J. Cole, заявленный как его финальный релиз и попытка подвести итог карьере и “сделать лучшее, чем на дебюте”. Это не безупречная «нестареющая классика», но очень амбициозная, местами выдающаяся работа, которая на голову выше среднего уровня мейнстрим‑рэпа и уверенно входит в топ‑3 его дискографии пост‑микстейп‑эры.",
       subText: "Альбом подаётся как финальная глава: Cole прямо пишет, что 10 лет целенаправленно строил этот релиз как личный челлендж и “долг перед собой и хип‑хопом”.\nСтруктура двойного альбома выстроена как цикл: возвращение домой в Фейетвилл, движение по знакомым темам — гордость, смерть, отношения, «Ville», — но уже с опытом и возрастом.\nКонцептуальный центр — идея «падения» как неизбежного этапа цикла: не столько карьерный крах, сколько принятие конечности пути и смещение фокуса со славы на семью и наследие.\nПовествовательный каркас работает довольно стройно: от возвращения “домой” в ранних треках Disc 29 до более философских и ретроспективных моментов Disc 39, где герой уже не доказывает, а переосмысливает.",
       highlight: "Это звучит как человек, который покорил вершину и теперь ищет способ слезть с неё.",
@@ -150,14 +150,14 @@ const translations: Record<Language, Translations> = {
     },
     tracks: {
       title: "Треклист",
-      disc1: "Диск 1",
-      disc2: "Диск 2"
+      disc1: "Диск 29",
+      disc2: "Диск 39"
     },
     footer: {
       labelTitle: "Лейбл",
       designTitle: "Дизайн",
       rights: "Все права защищены.",
-      year: "Год: 2025"
+      year: "Год: 2026"
     }
   }
 };
