@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Hero from './components/Hero';
-import MarqueeStrip from './components/MarqueeStrip';
-import ReviewContent from './components/ReviewContent';
-import TrackList from './components/TrackList';
-import VisualShowcase from './components/VisualShowcase';
-import Footer from './components/Footer';
-import Navigation from './components/Navigation';
+import Hero from './Components/Hero';
+import MarqueeStrip from './Components/MarqueeStrip';
+import ReviewContent from './Components/ReviewContent';
+import TrackList from './Components/TrackList';
+import VisualShowcase from './Components/VisualShowcase';
+import Footer from './Components/Footer';
+import Navigation from './Components/Navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const App: React.FC = () => {
