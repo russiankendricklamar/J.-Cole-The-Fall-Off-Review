@@ -61,7 +61,7 @@ const translations: Record<Language, Translations> = {
       review: "Review",
       tracks: "Tracks",
       credits: "Credits",
-      vol: "The Fall Off / Vol. 1"
+      vol: "\"The Fall Off\" album"
     },
     hero: {
       chapter: "The Final Chapter",
@@ -76,8 +76,8 @@ const translations: Record<Language, Translations> = {
       rating: "RATING",
       genre: "GENRE",
       runtime: "RUNTIME",
-      mainText: "\"The Fall Off\" isn't a decline; it's a controlled demolition of the throne he built, leaving nothing but dust and legacy.",
-      subText: "For years, Jermaine Cole teased this moment. The final act. The closing curtain. Where other rappers fade into obscurity or tarnish their discography with lackluster attempts to stay relevant, Cole has orchestrated his exit with the precision of a grandmaster. This album feels heavy—not in a burdensome way, but with the gravitational pull of a planet. It is dense, intricate, and brutally honest.",
+      mainText: "J. Cole’s latest album is the double project “The Fall-Off,” a 24-track release split into Disc 29 and Disc 39 and presented as his final statement and an attempt to outdo his debut. It is not a flawless instant classic, but it is a highly ambitious project with several outstanding moments that stands well above most mainstream rap and comfortably ranks among the top three albums of his post-mixtape era.",
+      subText: "The album is framed as a final chapter: Cole has said he spent ten years deliberately building toward this release as a personal challenge and a debt he felt he owed himself and hip-hop. Its dual structure works like a circle: a return home to Fayetteville and a journey through familiar themes—pride, death, relationships, the Ville—revisited with more age and experience. At its conceptual core is the idea of “falling off” as an inevitable stage in a cycle—not so much a career collapse as an acceptance of endings and a shift of focus from fame to family and legacy. The narrative framework holds together quite well, moving from a homecoming arc on the early Disc 29 tracks to the more philosophical, retrospective moments on Disc 39, where the protagonist is no longer trying to prove himself but to reconsider and reframe his journey.",
       highlight: "It sounds like a man who has conquered the mountain and is now looking for a way to fly off it.",
       prodTitle: "Production",
       prodText: "The beats are dusty, soulful, yet pierced with futuristic synths that create a sense of timelessness. Cole produces roughly 70% of the record himself, proving once again that his ear for sampling is unmatched in the modern era.",
