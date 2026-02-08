@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type VisualType = 'image' | 'video';
 
@@ -7,54 +8,54 @@ interface VisualItem {
   id: string;
   type: VisualType;
   src: string;
-  caption: string;
+  captionKey: 'cover' | 'trailer' | 'concept1' | 'visualizer' | 'concept2';
 }
 
-const visuals: VisualItem[] = [
+const visualsData: VisualItem[] = [
   {
     id: 'cover',
     type: 'image',
-    // Using a dark, moody abstract image as a placeholder for the album cover
     src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop', 
-    caption: 'The Fall Off — Official Cover',
+    captionKey: 'cover',
   },
   {
     id: 'trailer',
     type: 'video',
     src: 'https://videos.pexels.com/video-files/5532772/5532772-uhd_2560_1440_25fps.mp4',
-    caption: 'Teaser Trailer',
+    captionKey: 'trailer',
   },
   {
     id: 'concept1',
     type: 'image',
     src: 'https://picsum.photos/seed/cole_art_1/800/1000',
-    caption: 'Concept Art .001',
+    captionKey: 'concept1',
   },
   {
     id: 'studio',
     type: 'video',
     src: 'https://videos.pexels.com/video-files/3014168/3014168-uhd_2560_1440_25fps.mp4',
-    caption: 'Visualizer',
+    captionKey: 'visualizer',
   },
   {
     id: 'concept2',
     type: 'image',
     src: 'https://picsum.photos/seed/cole_art_2/800/1000',
-    caption: 'Concept Art .002',
+    captionKey: 'concept2',
   },
 ];
 
 const VisualShowcase: React.FC = () => {
+  const { t } = useLanguage();
   // Duplicate items for seamless marquee effect
-  const marqueeItems = [...visuals, ...visuals];
+  const marqueeItems = [...visualsData, ...visualsData];
 
   return (
     <section className="bg-red-600 py-24 overflow-hidden relative">
       <div className="px-6 md:px-12 mb-12 flex justify-between items-end border-b border-black pb-4 z-10 relative">
         <h2 className="font-anton text-6xl md:text-9xl text-black uppercase leading-[0.8]">
-          Visuals
+          {t.visuals.title}
         </h2>
-        <span className="font-mono text-black hidden md:block">003 — GALLERY</span>
+        <span className="font-mono text-black hidden md:block">{t.visuals.gallery}</span>
       </div>
 
       <div className="relative w-full">
@@ -84,7 +85,7 @@ const VisualShowcase: React.FC = () => {
               ) : (
                 <img
                   src={item.src}
-                  alt={item.caption}
+                  alt={t.visuals.captions[item.captionKey]}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
               )}
@@ -94,14 +95,14 @@ const VisualShowcase: React.FC = () => {
 
               {/* Caption Overlay */}
               <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                <p className="font-anton text-white text-3xl uppercase">{item.caption}</p>
+                <p className="font-anton text-white text-3xl uppercase">{t.visuals.captions[item.captionKey]}</p>
                 <p className="font-mono text-red-500 text-xs uppercase tracking-wider mt-1">Figure {index + 1}</p>
               </div>
               
               {/* Center Interaction Text */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none mix-blend-difference">
                  <span className="font-anton text-6xl text-white uppercase tracking-tighter text-stroke-white">
-                    VIEW
+                    {t.visuals.view}
                  </span>
               </div>
             </div>
