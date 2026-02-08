@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { Track } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const disc1: Track[] = [
   { id: 1, title: "29 Intro", duration: "0:57", spotifyUrl: "https://open.spotify.com/track/0EqH5Wz93cJtfUGv3vtQPY?si=471ad340b2aa4359" },
@@ -70,6 +71,8 @@ const TrackItem: React.FC<{ track: Track; index: number }> = ({ track, index }) 
 );
 
 const TrackList: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="tracks" className="bg-neutral-950 py-24 px-6 md:px-12 relative">
       {/* Background Typography Texture */}
@@ -84,7 +87,7 @@ const TrackList: React.FC = () => {
 
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="mb-16 text-center">
-            <h2 className="font-anton text-5xl md:text-8xl text-white uppercase">Tracklist</h2>
+            <h2 className="font-anton text-5xl md:text-8xl text-white uppercase">{t.tracks.title}</h2>
             <div className="w-24 h-2 bg-red-600 mx-auto mt-4" />
         </div>
 
@@ -96,7 +99,7 @@ const TrackList: React.FC = () => {
             viewport={{ once: true }}
             className="flex items-center gap-4 mb-6"
           >
-            <span className="font-anton text-2xl md:text-4xl text-red-600 uppercase">Disc 1</span>
+            <span className="font-anton text-2xl md:text-4xl text-red-600 uppercase">{t.tracks.disc1}</span>
             <div className="h-[1px] bg-red-600 flex-grow opacity-50"></div>
           </motion.div>
           
@@ -115,7 +118,7 @@ const TrackList: React.FC = () => {
              viewport={{ once: true }}
              className="flex items-center gap-4 mb-6 mt-16"
           >
-            <span className="font-anton text-2xl md:text-4xl text-red-600 uppercase">Disc 2</span>
+            <span className="font-anton text-2xl md:text-4xl text-red-600 uppercase">{t.tracks.disc2}</span>
             <div className="h-[1px] bg-red-600 flex-grow opacity-50"></div>
           </motion.div>
 
