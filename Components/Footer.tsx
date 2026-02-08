@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
       </div>
       
       <div className="mt-24 flex justify-between font-mono text-xs text-neutral-700 uppercase">
-        <span>© 2025 Dreamville Inc.</span>
+        <span>© 2026 Dreamville Inc.</span>
         <span>{t.footer.rights}</span>
       </div>
     </footer>
