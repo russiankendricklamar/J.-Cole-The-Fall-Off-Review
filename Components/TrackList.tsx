@@ -4,16 +4,18 @@ import { Play } from 'lucide-react';
 import { Track } from '../types';
 
 const tracks: Track[] = [
-  { id: 1, title: "The Fall Off (Intro)", duration: "2:14" },
-  { id: 2, title: "Climb Back", duration: "5:04" },
-  { id: 3, title: "Lion King on Ice", duration: "3:32" },
-  { id: 4, title: "Heaven's EP", duration: "3:45", featured: "feat. Drake" },
-  { id: 5, title: "Procrastination", duration: "4:12" },
-  { id: 6, title: "Adonis", duration: "3:58" },
-  { id: 7, title: "Trae The Truth in Ibiza", duration: "4:20" },
-  { id: 8, title: "1985 (Reprise)", duration: "3:10" },
-  { id: 9, title: "Retirement Plan", duration: "4:45", featured: "feat. Kendrick Lamar" },
-  { id: 10, title: "Last Call", duration: "6:10" },
+  { id: 1, title: "29 Intro", duration: "0:57" },
+  { id: 2, title: "Two Six", duration: "3:16" },
+  { id: 3, title: "SAFETY", duration: "5:18" },
+  { id: 4, title: "Run a Train (with Future)", duration: "4:02", featured: "feat. Future" },
+  { id: 5, title: "Poor Thang", duration: "4:50" },
+  { id: 6, title: "Legacy (with PJ)", duration: "3:55", featured: "feat. PJ" },
+  { id: 7, title: "Bunce Road Blues (with Future & Tems)", duration: "5:10", featured: "feat. Future, Tems" },
+  { id: 8, title: "WHO TF IZ U", duration: "4:37" },
+  { id: 9, title: "Drum n Bass", duration: "4:14" },
+  { id: 10, title: "The Let Out", duration: "4:14" },
+  { id: 11, title: "Bombs in the Ville/Hit the Gas", duration: "4:06" },
+  { id: 12, title: "Lonely at the Top (Bonus)", duration: "3:24" },
 ];
 
 const TrackList: React.FC = () => {
