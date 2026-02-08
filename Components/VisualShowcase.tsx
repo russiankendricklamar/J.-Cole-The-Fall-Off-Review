@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -66,6 +66,7 @@ const visualsData: VisualItem[] = [
 const VisualShowcase: React.FC = () => {
   const { t } = useLanguage();
   const [selectedItem, setSelectedItem] = useState<VisualItem | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Duplicate items for seamless marquee effect
   const marqueeItems = [...visualsData, ...visualsData];
@@ -79,6 +80,25 @@ const VisualShowcase: React.FC = () => {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
+  // Force play video when modal opens
+  useEffect(() => {
+    if (selectedItem?.type === 'video' && videoRef.current) {
+        // We add a small timeout to ensure the DOM is ready
+        const timer = setTimeout(() => {
+            if (videoRef.current) {
+                videoRef.current.volume = 0.5; // Set default volume to 50%
+                const playPromise = videoRef.current.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch((error) => {
+                        console.log("Auto-play was prevented:", error);
+                    });
+                }
+            }
+        }, 100);
+        return () => clearTimeout(timer);
+    }
+  }, [selectedItem]);
+
   return (
     <section className="bg-red-600 py-24 overflow-hidden relative">
       <div className="px-6 md:px-12 mb-12 flex justify-between items-end border-b border-black pb-4 z-10 relative">
@@ -91,7 +111,7 @@ const VisualShowcase: React.FC = () => {
       <div className="relative w-full">
         <motion.div
           className="flex gap-4 w-max"
-          animate={{ x: selectedItem ? 0 : "-50%" }} // Pause animation when modal is open (optional, but good UX)
+          animate={{ x: selectedItem ? 0 : "-50%" }} // Pause animation when modal is open
           transition={{
             duration: 60,
             ease: "linear",
@@ -100,9 +120,10 @@ const VisualShowcase: React.FC = () => {
           style={{ animationPlayState: selectedItem ? 'paused' : 'running' }}
         >
           {marqueeItems.map((item, index) => (
-            <div
+            <motion.div
               key={`${item.id}-${index}`}
               onClick={() => setSelectedItem(item)}
+              whileTap={{ scale: 0.98 }}
               className="relative flex-shrink-0 w-[85vw] md:w-[35vw] h-[50vh] md:h-[70vh] group overflow-hidden bg-black cursor-pointer"
             >
               {item.type === 'youtube' ? (
@@ -120,8 +141,6 @@ const VisualShowcase: React.FC = () => {
                   loop
                   muted
                   playsInline
-                  // We don't autoplay here if we want performance, but for the "alive" feel we keep it
-                  // However, clicking it opens the full player
                   autoPlay 
                   className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0"
                 />
@@ -148,7 +167,7 @@ const VisualShowcase: React.FC = () => {
                 <p className="font-anton text-white text-3xl uppercase">{t.visuals.captions[item.captionKey]}</p>
                 <p className="font-mono text-red-500 text-xs uppercase tracking-wider mt-1">Figure {index + 1}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
@@ -180,10 +199,11 @@ const VisualShowcase: React.FC = () => {
             >
               {selectedItem.type === 'video' && (
                 <video
+                  ref={videoRef}
                   src={selectedItem.src}
                   poster={selectedItem.poster}
                   controls
-                  autoPlay
+                  playsInline
                   className="w-full h-full object-contain"
                 />
               )}
