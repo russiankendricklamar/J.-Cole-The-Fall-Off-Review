@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           <h2 className="font-anton text-[15vw] md:text-[8vw] leading-[0.8] text-red-600 uppercase">
             J. Cole
           </h2>
-          <p className="font-oswald text-xl uppercase mt-2">The Fall Off</p>
+          <p className="font-oswald text-xl uppercase mt-2">The Fall-Off</p>
         </div>
 
         <div className="grid grid-cols-2 gap-12 font-mono text-xs text-neutral-500 uppercase">
@@ -23,8 +23,7 @@ const Footer: React.FC = () => {
           </div>
           <div>
             <h4 className="text-white mb-4">{t.footer.designTitle}</h4>
-            <p>Ref: Studio</p>
-            <p>Dev: React/Tailwind</p>
+            <p>Prod: "Не до конца рандомные строчки из песен"</p>
             <p>{t.footer.year}</p>
           </div>
         </div>
