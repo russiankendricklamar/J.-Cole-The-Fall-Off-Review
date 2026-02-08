@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 1, delay: 1.8, ease: [0.76, 0, 0.24, 1] }}
             className="font-anton text-[22vw] leading-[0.8] text-black uppercase mix-blend-multiply origin-top"
             >
-            FALL OFF
+            FALL-OFF
             </motion.h1>
         </div>
       </motion.div>
@@ -63,7 +63,7 @@ const Hero: React.FC = () => {
         className="absolute bottom-10 left-0 w-full flex justify-between px-6 md:px-12 font-oswald text-black uppercase text-lg"
       >
         <span>J. Cole</span>
-        <span>2025</span>
+        <span>2026</span>
         <span className="hidden md:inline">{t.hero.label}</span>
       </motion.div>
 
