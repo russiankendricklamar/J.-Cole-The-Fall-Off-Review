@@ -7,9 +7,11 @@ import VisualShowcase from './Components/VisualShowcase';
 import Footer from './Components/Footer';
 import Navigation from './Components/Navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLanguage } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Simulate initial loading for effect
@@ -41,9 +43,9 @@ const App: React.FC = () => {
             <Navigation />
             <main className="relative z-10">
               <Hero />
-              <MarqueeStrip text="THE FALL OFF — A MASTERPIECE — J. COLE — 2025 — DREAMVILLE —" direction="left" />
+              <MarqueeStrip text={t.marquee.strip1} direction="left" />
               <ReviewContent />
-              <MarqueeStrip text="LEGENDARY STATUS — NORTH CAROLINA — THE CLIMB BACK —" direction="right" theme="dark" />
+              <MarqueeStrip text={t.marquee.strip2} direction="right" theme="dark" />
               <VisualShowcase />
               <TrackList />
               <Footer />
