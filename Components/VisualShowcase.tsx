@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
-// Helper to extract YouTube ID from various URL formats
+// Helper to extract YouTube ID (kept just in case you want to mix types later)
 const getYouTubeID = (url: string) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
@@ -27,26 +27,26 @@ const visualsData: VisualItem[] = [
   },
   {
     id: 'clip-amari',
-    type: 'youtube',
-    src: 'https://www.youtube.com/watch?v=6g6LErEaF-s',
+    type: 'video', // Changed to local video
+    src: '/amari.mp4', // File must be in public/amari.mp4
     captionKey: 'clipAmari',
   },
   {
     id: 'clip-punchin',
-    type: 'youtube',
-    src: 'https://www.youtube.com/watch?v=SXX-YotJDVU',
+    type: 'video', // Changed to local video
+    src: '/punchin.mp4', // File must be in public/punchin.mp4
     captionKey: 'clipPunchin',
   },
   {
     id: 'trailer-pressure',
-    type: 'youtube',
-    src: 'https://www.youtube.com/watch?v=sBu5TZ08dOs',
+    type: 'video', // Changed to local video
+    src: '/pressure.mp4', // File must be in public/pressure.mp4
     captionKey: 'trailerPressure',
   },
   {
     id: 'clip-interlude',
-    type: 'youtube',
-    src: 'https://www.youtube.com/watch?v=pvf_Qv4rmLM',
+    type: 'video', // Changed to local video
+    src: '/interlude.mp4', // File must be in public/interlude.mp4
     captionKey: 'clipInterlude',
   },
   {
@@ -76,7 +76,7 @@ const VisualShowcase: React.FC = () => {
           className="flex gap-4 w-max"
           animate={{ x: "-50%" }}
           transition={{
-            duration: 60, // Slower duration because we have more items now
+            duration: 60,
             ease: "linear",
             repeat: Infinity,
           }}
@@ -88,7 +88,6 @@ const VisualShowcase: React.FC = () => {
             >
               {item.type === 'youtube' ? (
                 <div className="w-full h-full relative pointer-events-none overflow-hidden">
-                    {/* Scaled iframe to simulate object-cover and hide controls */}
                     <iframe
                         src={`https://www.youtube.com/embed/${getYouTubeID(item.src)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getYouTubeID(item.src)}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3`}
                         className="absolute top-1/2 left-1/2 w-[400%] h-[150%] -translate-x-1/2 -translate-y-1/2 opacity-80 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0"
