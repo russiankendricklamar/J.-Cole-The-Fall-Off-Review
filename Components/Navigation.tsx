@@ -6,7 +6,7 @@ const Navigation: React.FC = () => {
     <nav className="fixed top-0 left-0 w-full z-40 px-6 py-4 flex justify-between items-center mix-blend-difference text-white">
       <div className="flex items-center gap-2">
         <Disc className="w-6 h-6 animate-spin-slow" />
-        <span className="font-mono text-xs uppercase tracking-widest">The Fall Off</span>
+        <span className="font-mono text-xs uppercase tracking-widest">"The Fall-Off" album</span>
       </div>
       
       <div className="hidden md:flex gap-8 font-oswald uppercase text-sm tracking-widest">
