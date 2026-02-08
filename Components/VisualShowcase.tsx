@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -10,13 +10,13 @@ const getYouTubeID = (url: string) => {
   return (match && match[2].length === 11) ? match[2] : null;
 };
 
-type VisualType = 'image' | 'video' | 'youtube';
+type VisualType = 'image' | 'youtube';
 
 interface VisualItem {
   id: string;
   type: VisualType;
   src: string;
-  poster?: string;
+  poster?: string; // Used for YouTube thumbnails
   captionKey: 'coverMain' | 'clipAmari' | 'clipPunchin' | 'trailerPressure' | 'clipInterlude' | 'coverCD';
 }
 
@@ -29,29 +29,29 @@ const visualsData: VisualItem[] = [
   },
   {
     id: 'clip-amari',
-    type: 'video',
-    src: '/amari.mp4',
+    type: 'youtube', 
+    src: 'https://www.youtube.com/watch?v=6g6LErEaF-s',
     poster: 'https://img.youtube.com/vi/6g6LErEaF-s/maxresdefault.jpg',
     captionKey: 'clipAmari',
   },
   {
     id: 'clip-punchin',
-    type: 'video',
-    src: '/punchin.mp4',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=SXX-YotJDVU',
     poster: 'https://img.youtube.com/vi/SXX-YotJDVU/maxresdefault.jpg',
     captionKey: 'clipPunchin',
   },
   {
     id: 'trailer-pressure',
-    type: 'video',
-    src: '/pressure.mp4',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=sBu5TZ08dOs',
     poster: 'https://img.youtube.com/vi/sBu5TZ08dOs/maxresdefault.jpg',
     captionKey: 'trailerPressure',
   },
   {
     id: 'clip-interlude',
-    type: 'video',
-    src: '/interlude.mp4',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=pvf_Qv4rmLM',
     poster: 'https://img.youtube.com/vi/pvf_Qv4rmLM/maxresdefault.jpg',
     captionKey: 'clipInterlude',
   },
@@ -66,7 +66,6 @@ const visualsData: VisualItem[] = [
 const VisualShowcase: React.FC = () => {
   const { t } = useLanguage();
   const [selectedItem, setSelectedItem] = useState<VisualItem | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Duplicate items for seamless marquee effect
   const marqueeItems = [...visualsData, ...visualsData];
@@ -80,25 +79,6 @@ const VisualShowcase: React.FC = () => {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
-  // Force play video when modal opens
-  useEffect(() => {
-    if (selectedItem?.type === 'video' && videoRef.current) {
-        // We add a small timeout to ensure the DOM is ready
-        const timer = setTimeout(() => {
-            if (videoRef.current) {
-                videoRef.current.volume = 0.5; // Set default volume to 50%
-                const playPromise = videoRef.current.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch((error) => {
-                        console.log("Auto-play was prevented:", error);
-                    });
-                }
-            }
-        }, 100);
-        return () => clearTimeout(timer);
-    }
-  }, [selectedItem]);
-
   return (
     <section className="bg-red-600 py-24 overflow-hidden relative">
       <div className="px-6 md:px-12 mb-12 flex justify-between items-end border-b border-black pb-4 z-10 relative">
@@ -111,7 +91,7 @@ const VisualShowcase: React.FC = () => {
       <div className="relative w-full">
         <motion.div
           className="flex gap-4 w-max"
-          animate={{ x: selectedItem ? 0 : "-50%" }} // Pause animation when modal is open
+          animate={{ x: selectedItem ? 0 : "-50%" }}
           transition={{
             duration: 60,
             ease: "linear",
@@ -126,41 +106,34 @@ const VisualShowcase: React.FC = () => {
               whileTap={{ scale: 0.98 }}
               className="relative flex-shrink-0 w-[85vw] md:w-[35vw] h-[50vh] md:h-[70vh] group overflow-hidden bg-black cursor-pointer"
             >
-              {item.type === 'youtube' ? (
-                <div className="w-full h-full relative pointer-events-none overflow-hidden">
-                    <iframe
-                        src={`https://www.youtube.com/embed/${getYouTubeID(item.src)}?autoplay=0&mute=1&controls=0&loop=1&playlist=${getYouTubeID(item.src)}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3`}
-                        className="absolute top-1/2 left-1/2 w-[400%] h-[150%] -translate-x-1/2 -translate-y-1/2 opacity-80 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0"
-                        title={t.visuals.captions[item.captionKey]}
-                    />
-                </div>
-              ) : item.type === 'video' ? (
-                <video
-                  src={item.src}
-                  poster={item.poster}
-                  loop
-                  muted
-                  playsInline
-                  autoPlay 
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0"
-                />
-              ) : (
-                <img
-                  src={item.src}
-                  alt={t.visuals.captions[item.captionKey]}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-              )}
+              {/* ALWAYS render an image in the marquee for performance and stability */}
+              <img
+                src={item.poster || item.src}
+                alt={t.visuals.captions[item.captionKey]}
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
+              />
 
               {/* Red Overlay Effect */}
               <div className="absolute inset-0 bg-red-600 mix-blend-multiply opacity-0 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none" />
 
-              {/* Play Icon Indicator */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30">
-                 <div className="w-20 h-20 rounded-full border-2 border-white flex items-center justify-center backdrop-blur-sm">
-                    {item.type !== 'image' ? <Play className="w-8 h-8 text-white fill-white ml-1" /> : <span className="font-anton text-white text-xl">VIEW</span>}
-                 </div>
-              </div>
+              {/* Play Icon Indicator - Only for videos */}
+              {item.type === 'youtube' && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30">
+                   <div className="w-20 h-20 rounded-full border-2 border-white flex items-center justify-center backdrop-blur-sm">
+                      <Play className="w-8 h-8 text-white fill-white ml-1" />
+                   </div>
+                </div>
+              )}
+
+              {/* View Indicator - Only for images */}
+              {item.type === 'image' && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30">
+                   <div className="w-20 h-20 rounded-full border-2 border-white flex items-center justify-center backdrop-blur-sm">
+                      <span className="font-anton text-white text-xl">VIEW</span>
+                   </div>
+                </div>
+              )}
 
               {/* Caption Overlay */}
               <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10 pointer-events-none">
@@ -197,22 +170,12 @@ const VisualShowcase: React.FC = () => {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="w-full max-w-7xl max-h-[85vh] aspect-video relative shadow-2xl bg-black border border-neutral-800"
             >
-              {selectedItem.type === 'video' && (
-                <video
-                  ref={videoRef}
-                  src={selectedItem.src}
-                  poster={selectedItem.poster}
-                  controls
-                  playsInline
-                  className="w-full h-full object-contain"
-                />
-              )}
               
               {selectedItem.type === 'youtube' && (
                 <iframe
                   src={`https://www.youtube.com/embed/${getYouTubeID(selectedItem.src)}?autoplay=1&rel=0&showinfo=0`}
                   className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   title={t.visuals.captions[selectedItem.captionKey]}
                 />
