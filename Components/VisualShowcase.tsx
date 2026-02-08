@@ -2,45 +2,58 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
-type VisualType = 'image' | 'video';
+// Helper to extract YouTube ID from various URL formats
+const getYouTubeID = (url: string) => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+};
+
+type VisualType = 'image' | 'video' | 'youtube';
 
 interface VisualItem {
   id: string;
   type: VisualType;
   src: string;
-  captionKey: 'cover' | 'trailer' | 'concept1' | 'visualizer' | 'concept2';
+  captionKey: 'coverMain' | 'clipAmari' | 'clipPunchin' | 'trailerPressure' | 'clipInterlude' | 'coverCD';
 }
 
 const visualsData: VisualItem[] = [
   {
-    id: 'cover',
+    id: 'cover-main',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop', 
-    captionKey: 'cover',
+    src: 'https://www.thefalloff.com/_next/image?url=https%3A%2F%2Fdt7m7kl3brv3f.cloudfront.net%2Fimages%2Fkwniekqcnal2l2s9vz8v8g243rri&w=2048&q=75', 
+    captionKey: 'coverMain',
   },
   {
-    id: 'trailer',
-    type: 'video',
-    src: 'https://videos.pexels.com/video-files/5532772/5532772-uhd_2560_1440_25fps.mp4',
-    captionKey: 'trailer',
+    id: 'clip-amari',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=6g6LErEaF-s',
+    captionKey: 'clipAmari',
   },
   {
-    id: 'concept1',
+    id: 'clip-punchin',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=SXX-YotJDVU',
+    captionKey: 'clipPunchin',
+  },
+  {
+    id: 'trailer-pressure',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=sBu5TZ08dOs',
+    captionKey: 'trailerPressure',
+  },
+  {
+    id: 'clip-interlude',
+    type: 'youtube',
+    src: 'https://www.youtube.com/watch?v=pvf_Qv4rmLM',
+    captionKey: 'clipInterlude',
+  },
+  {
+    id: 'cover-cd',
     type: 'image',
-    src: 'https://picsum.photos/seed/cole_art_1/800/1000',
-    captionKey: 'concept1',
-  },
-  {
-    id: 'studio',
-    type: 'video',
-    src: 'https://videos.pexels.com/video-files/3014168/3014168-uhd_2560_1440_25fps.mp4',
-    captionKey: 'visualizer',
-  },
-  {
-    id: 'concept2',
-    type: 'image',
-    src: 'https://picsum.photos/seed/cole_art_2/800/1000',
-    captionKey: 'concept2',
+    src: 'https://www.thefalloff.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcd_background.db1855d0.jpg&w=1080&q=75&dpl=dpl_AwW3atdVQkZeUipKuB9oV46D5fnW',
+    captionKey: 'coverCD',
   },
 ];
 
@@ -63,7 +76,7 @@ const VisualShowcase: React.FC = () => {
           className="flex gap-4 w-max"
           animate={{ x: "-50%" }}
           transition={{
-            duration: 40,
+            duration: 60, // Slower duration because we have more items now
             ease: "linear",
             repeat: Infinity,
           }}
@@ -73,7 +86,17 @@ const VisualShowcase: React.FC = () => {
               key={`${item.id}-${index}`}
               className="relative flex-shrink-0 w-[85vw] md:w-[35vw] h-[50vh] md:h-[70vh] group overflow-hidden bg-black"
             >
-              {item.type === 'video' ? (
+              {item.type === 'youtube' ? (
+                <div className="w-full h-full relative pointer-events-none overflow-hidden">
+                    {/* Scaled iframe to simulate object-cover and hide controls */}
+                    <iframe
+                        src={`https://www.youtube.com/embed/${getYouTubeID(item.src)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${getYouTubeID(item.src)}&playsinline=1&showinfo=0&rel=0&iv_load_policy=3`}
+                        className="absolute top-1/2 left-1/2 w-[400%] h-[150%] -translate-x-1/2 -translate-y-1/2 opacity-80 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        title={t.visuals.captions[item.captionKey]}
+                    />
+                </div>
+              ) : item.type === 'video' ? (
                 <video
                   src={item.src}
                   autoPlay
@@ -94,13 +117,13 @@ const VisualShowcase: React.FC = () => {
               <div className="absolute inset-0 bg-red-600 mix-blend-multiply opacity-0 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none" />
 
               {/* Caption Overlay */}
-              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10">
                 <p className="font-anton text-white text-3xl uppercase">{t.visuals.captions[item.captionKey]}</p>
                 <p className="font-mono text-red-500 text-xs uppercase tracking-wider mt-1">Figure {index + 1}</p>
               </div>
               
               {/* Center Interaction Text */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none mix-blend-difference">
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none mix-blend-difference z-20">
                  <span className="font-anton text-6xl text-white uppercase tracking-tighter text-stroke-white">
                     {t.visuals.view}
                  </span>
