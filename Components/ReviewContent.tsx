@@ -18,9 +18,9 @@ const ReviewContent: React.FC = () => {
             </h2>
             <div className="w-full h-[1px] bg-neutral-800 mb-4" />
             <div className="font-mono text-sm text-neutral-500">
-              <p>{t.review.rating}: 9.8/10</p>
+              <p>{t.review.rating}: 9.2/10</p>
               <p>{t.review.genre}: HIP HOP</p>
-              <p>{t.review.runtime}: 64 MIN</p>
+              <p>{t.review.runtime}: 101 MIN</p>
             </div>
           </div>
         </div>
